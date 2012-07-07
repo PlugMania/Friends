@@ -6,9 +6,13 @@ import java.util.HashMap;
 
 public class FriendManager {
 
-	private static HashMap<String, Friend> friends = new HashMap<String, Friend>();
+	private HashMap<String, Friend> friends = new HashMap<String, Friend>();
 
-	public static Friend getFriend(Player p){
+	public FriendManager (){
+		//load all friend classes!!
+	}
+
+	public Friend getFriend(Player p){
 		return friends.get(p.getName());
 	}
 }

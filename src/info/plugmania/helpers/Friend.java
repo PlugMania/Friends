@@ -10,19 +10,29 @@ import java.util.List;
 public class Friend {
 
 	private String playerName;
-	private List<Friend> friends = new ArrayList<Friend>();
+	private ArrayList<OfflinePlayer> friends = new ArrayList<OfflinePlayer>();
+	private ArrayList<OfflinePlayer> friendRequests = new ArrayList<OfflinePlayer>();
 
 	public Friend(Player p) {
 		playerName = p.getName();
 	}
 
-	public List<Friend> getFriends(){
+	public ArrayList<OfflinePlayer> getFriends(){
 		return friends;
 	}
 
-	public List<Friend> addFriend(Friend f){
-		friends.add(f);
+	public ArrayList<OfflinePlayer> addFriend(OfflinePlayer friend){
+		friends.add(friend);
 		return friends;
+	}
+
+	public ArrayList<OfflinePlayer> removeFriend(OfflinePlayer friend){
+		friends.remove(friend);
+		return friends;
+	}
+
+	public ArrayList<OfflinePlayer> getFriendRequests(){
+		return friendRequests;
 	}
 
 	public OfflinePlayer getPlayer(){
