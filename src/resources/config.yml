@@ -2,6 +2,3 @@
 #Version later to be used to maintain config
 version: 0.0.1
 
-#Choose lang, available: en
-lang: en
-

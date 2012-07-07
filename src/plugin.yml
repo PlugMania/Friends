@@ -1,9 +1,5 @@
-name: Template
+name: Friends
 author: PlugMania
-main: com.github.plugmania.template.Template
+main: info.plugmania.friends.Friends
 version: 0.0.1
-description: Template.
-commands:
-  template:
-    usage: /template
-    description: Shows default help and info
+description: Keep track of your friends, chat, trade, locate and more...
