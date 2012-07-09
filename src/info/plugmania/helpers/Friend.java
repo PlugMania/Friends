@@ -10,32 +10,39 @@ import java.util.List;
 public class Friend {
 
 	private String playerName;
-	private ArrayList<OfflinePlayer> friends = new ArrayList<OfflinePlayer>();
-	private ArrayList<OfflinePlayer> friendRequests = new ArrayList<OfflinePlayer>();
 
-	public Friend(Player p) {
+	private boolean inFriendChat = false;
+
+	private ArrayList<OfflinePlayer> friends = new ArrayList<OfflinePlayer>();
+
+	public Friend(Player p, ArrayList<OfflinePlayer> friendsPlayers) {
 		playerName = p.getName();
+		friends = friendsPlayers;
 	}
 
 	public ArrayList<OfflinePlayer> getFriends(){
 		return friends;
 	}
 
-	public ArrayList<OfflinePlayer> addFriend(OfflinePlayer friend){
-		friends.add(friend);
+	public ArrayList<OfflinePlayer> addFriend(OfflinePlayer player){
+		friends.add(player);
 		return friends;
 	}
 
-	public ArrayList<OfflinePlayer> removeFriend(OfflinePlayer friend){
-		friends.remove(friend);
+	public ArrayList<OfflinePlayer> removeFriend(OfflinePlayer player){
+		friends.remove(player);
 		return friends;
-	}
-
-	public ArrayList<OfflinePlayer> getFriendRequests(){
-		return friendRequests;
 	}
 
 	public OfflinePlayer getPlayer(){
-		return Bukkit.getOfflinePlayer(playerName);
+		return Bukkit.getPlayer(playerName);
+	}
+
+	public boolean isInFriendChat(){
+		return inFriendChat;
+	}
+
+	public boolean setInFriendChat(boolean inChat){
+		return inFriendChat = inChat;
 	}
 }

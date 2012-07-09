@@ -3,3 +3,22 @@ author: PlugMania
 main: info.plugmania.friends.Friends
 version: 0.0.1
 description: Keep track of your friends, chat, trade, locate and more...
+commands:
+  friends:
+    usage: /friends
+    description: Friends management command
+    aliases: [friends, ap]
+  fchat:
+    usage: /fchat
+    description: Friends chat toggle
+    aliases: [f]
+permissions:
+    friends.*:
+        description: Allows you to use everything
+        default: op
+    friends.spy:
+        description: Allows you to spy on friend chat
+        default: op
+    friends.default:
+        description: Allows you to manage your friends
+        default: true

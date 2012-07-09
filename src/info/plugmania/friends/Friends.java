@@ -1,10 +1,9 @@
 package info.plugmania.friends;
 
-
-
-import info.plugmania.friends.commands.BaseCommand;
+import info.plugmania.friends.commands.FriendsCommand;
 import info.plugmania.friends.listeners.PlayerListener;
 
+import info.plugmania.helpers.FriendManager;
 import org.bukkit.Bukkit;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
@@ -19,16 +18,18 @@ public class Friends extends JavaPlugin {
 	
 	public final ConfigUtil configUtil;
 	public final Util util;
+
+	public final FriendManager friendManager;
 	
 	public Friends() {
         configUtil = new ConfigUtil(this);
         util = new Util(this);
+		friendManager = new FriendManager(this);
     }
 	
 	@Override
 	public void onDisable() {
 		Util.log(Util.pdfFile.getName() + " has been disabled");
-		
 	}
 	
 	@Override
@@ -52,7 +53,7 @@ public class Friends extends JavaPlugin {
 	}
 	
 	private void registerCommands(){
-		getCommand("friends").setExecutor(new BaseCommand(this));
+		getCommand("friends").setExecutor(new FriendsCommand(this));
 	}
 
 	private String basePerm = "friends";
