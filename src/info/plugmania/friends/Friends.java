@@ -1,8 +1,10 @@
 package info.plugmania.friends;
 
+import info.plugmania.friends.commands.FriendsChatCommand;
 import info.plugmania.friends.commands.FriendsCommand;
 import info.plugmania.friends.listeners.PlayerListener;
 
+import info.plugmania.helpers.CompassUpdater;
 import info.plugmania.helpers.FriendManager;
 import org.bukkit.Bukkit;
 import org.bukkit.configuration.file.YamlConfiguration;
@@ -10,7 +12,12 @@ import org.bukkit.entity.Player;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 
-
+/*
+ * TODO
+ * Ignore/Request command instead of add/remove
+ * Trading between friends
+ * Find players with compass (cycle through with shift)
+ */
 public class Friends extends JavaPlugin {
 	public YamlConfiguration mainConf;
 	
@@ -29,6 +36,7 @@ public class Friends extends JavaPlugin {
 	
 	@Override
 	public void onDisable() {
+		Bukkit.getScheduler().cancelTasks(this);
 		Util.log(Util.pdfFile.getName() + " has been disabled");
 	}
 	
@@ -48,12 +56,16 @@ public class Friends extends JavaPlugin {
 		pm.registerEvents(new PlayerListener(this), this);
 		
 		registerCommands();
+
+		//Start compass updator task
+		Bukkit.getScheduler().scheduleSyncRepeatingTask(this, new CompassUpdater(this), 20L, 10 * 20L);
 		
 		Util.log("Succesfully loaded.");
 	}
 	
 	private void registerCommands(){
 		getCommand("friends").setExecutor(new FriendsCommand(this));
+		getCommand("fchat").setExecutor(new FriendsChatCommand(this));
 	}
 
 	private String basePerm = "friends";

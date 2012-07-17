@@ -9,10 +9,7 @@ import org.bukkit.OfflinePlayer;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
-import org.bukkit.event.player.PlayerChatEvent;
-import org.bukkit.event.player.PlayerJoinEvent;
-import org.bukkit.event.player.PlayerKickEvent;
-import org.bukkit.event.player.PlayerQuitEvent;
+import org.bukkit.event.player.*;
 
 
 public class PlayerListener implements Listener {
@@ -28,6 +25,7 @@ public class PlayerListener implements Listener {
 
 		Player player = event.getPlayer();
 		Friend friendPlayer = plugin.friendManager.getFriend(player);
+		if(friendPlayer == null) return;
 		if(!friendPlayer.isInFriendChat()) return;
 
 		//formatting, hardcoded for now
@@ -35,9 +33,7 @@ public class PlayerListener implements Listener {
 		String format = ChatColor.DARK_AQUA + "[FriendChat] " + ChatColor.WHITE + "<" + player.getName() + "> : " + msg;
 
 		//send to each friend if they are online
-		for(OfflinePlayer op : friendPlayer.getFriends()){
-			if(!op.isOnline()) return;
-			Player p = (Player) op;
+		for(Player p : friendPlayer.getOnlineFriends()){
 			p.sendMessage(format);
 		}
 		//dont forget to send it to the sender
@@ -60,5 +56,15 @@ public class PlayerListener implements Listener {
 	@EventHandler
 	public void onPlayerKick(PlayerKickEvent event){
 		plugin.friendManager.unloadFriend(event.getPlayer());
+	}
+
+	@EventHandler
+	public void onPlayerToggleSneak(PlayerToggleSneakEvent event){
+		Player player = event.getPlayer();
+		Friend friendPlayer = plugin.friendManager.getFriend(player);
+		if(friendPlayer == null) return;
+
+		Player p = friendPlayer.getNextLocatorPlayer();
+		player.setCompassTarget(p.getLocation());
 	}
 }

@@ -6,6 +6,7 @@ import org.bukkit.entity.Player;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Map;
 
 public class FriendManager {
 
@@ -21,9 +22,18 @@ public class FriendManager {
 		return friends.get(p.getName());
 	}
 
+	public ArrayList<Friend> getAll(){
+		ArrayList<Friend> allFriendClasses = new ArrayList<Friend>();
+		for(Friend f : friends.values()){
+			allFriendClasses.add(f);
+		}
+		return allFriendClasses;
+	}
+
 	public Friend loadFriend(Player p){
 		ArrayList<OfflinePlayer> friendList = new ArrayList<OfflinePlayer>();
 		//load friends from file and add to list
+		//use the ConfigUtil.setPVal to save load array list
 
 		Friend friend = new Friend(p, friendList);
 

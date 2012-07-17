@@ -66,20 +66,24 @@ public class FriendsCommand implements CommandExecutor {
 				//TODO: Add pagination
 				return true;
 			}
-			if(args[0].equalsIgnoreCase("add")){
+			if(args[0].equalsIgnoreCase("add")){ //TODO Must become request (both users must accept)
 				if(friendPlayer == null) return false;
 				if(args.length != 2){
 					sender.sendMessage(Util.formatMessage(ChatColor.DARK_RED + "Not enough params!"));
 					return true;
 				}
 				OfflinePlayer newFriend = Bukkit.getOfflinePlayer(args[1]);
+				if(newFriend.getName().equals(player.getName())){
+					sender.sendMessage(Util.formatMessage(ChatColor.DARK_RED + "You cannot add yourself."));
+					return true;
+				}
 				if(newFriend == null){
 					sender.sendMessage(Util.formatMessage(ChatColor.DARK_RED + "Player does not exist."));
 					return true;
 				}
 				friendPlayer.addFriend(newFriend);
 				return true;
-			} else if(args[0].equalsIgnoreCase("remove")){
+			} else if(args[0].equalsIgnoreCase("remove")){ //TODO To become ignore/block
 				if(friendPlayer == null) return false;
 				if(args.length != 2){
 					sender.sendMessage(Util.formatMessage(ChatColor.DARK_RED + "Not enough params."));
