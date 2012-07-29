@@ -1,6 +1,8 @@
-package info.plugmania.helpers;
+package info.plugmania.friends.helpers;
 
 import info.plugmania.friends.Friends;
+import info.plugmania.friends.helpers.Friend;
+
 import org.bukkit.entity.Player;
 
 public class CompassUpdater implements Runnable {

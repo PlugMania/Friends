@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="MacRoman" standalone="no"?>
+<jardesc>
+    <jar path="Friends/Build/Friends.jar"/>
+    <options buildIfNeeded="true" compress="true" descriptionLocation="/Friends/Export.jardesc" exportErrors="true" exportWarnings="true" includeDirectoryEntries="false" overwrite="false" saveDescription="true" storeRefactorings="false" useSourceFolders="false"/>
+    <storedRefactorings deprecationInfo="true" structuralOnly="false"/>
+    <selectedProjects/>
+    <manifest generateManifest="true" manifestLocation="" manifestVersion="1.0" reuseManifest="false" saveManifest="false" usesManifest="true">
+        <sealing sealJar="false">
+            <packagesToSeal/>
+            <packagesToUnSeal/>
+        </sealing>
+    </manifest>
+    <selectedElements exportClassFiles="true" exportJavaFiles="false" exportOutputFolder="false">
+        <file path="/Friends/src/plugin.yml"/>
+        <javaElement handleIdentifier="=Friends/src&lt;info"/>
+        <file path="/Friends/src/resources/config.yml"/>
+        <javaElement handleIdentifier="=Friends/src&lt;info.plugmania.friends{Util.java"/>
+        <javaElement handleIdentifier="=Friends/src&lt;info.plugmania.friends.helpers"/>
+        <javaElement handleIdentifier="=Friends/src&lt;info.plugmania.friends{ConfigUtil.java"/>
+        <javaElement handleIdentifier="=Friends/src&lt;info.plugmania"/>
+        <javaElement handleIdentifier="=Friends/src&lt;info.plugmania.friends.commands{FriendsCommand.java"/>
+        <javaElement handleIdentifier="=Friends/src&lt;info.plugmania.friends.commands{FriendsChatCommand.java"/>
+        <javaElement handleIdentifier="=Friends/src&lt;info.plugmania.friends.listeners{PlayerListener.java"/>
+        <javaElement handleIdentifier="=Friends/src&lt;info.plugmania.friends{Friends.java"/>
+    </selectedElements>
+</jardesc>

@@ -2,7 +2,8 @@ package info.plugmania.friends.commands;
 
 import info.plugmania.friends.Friends;
 import info.plugmania.friends.Util;
-import info.plugmania.helpers.Friend;
+import info.plugmania.friends.helpers.Friend;
+
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.OfflinePlayer;

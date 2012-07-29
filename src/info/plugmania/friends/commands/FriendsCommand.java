@@ -3,8 +3,8 @@ package info.plugmania.friends.commands;
 
 import info.plugmania.friends.Friends;
 import info.plugmania.friends.Util;
+import info.plugmania.friends.helpers.Friend;
 
-import info.plugmania.helpers.Friend;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.OfflinePlayer;
@@ -63,27 +63,53 @@ public class FriendsCommand implements CommandExecutor {
 				for(String s : offlinePlayers){
 					sender.sendMessage(Util.formatMessage(ChatColor.BLUE + s));
 				}
-				//TODO: Add pagination
+				//TODO: Add pagination, no longer necessary since chat scrolls (but looks nicer)
 				return true;
 			}
-			if(args[0].equalsIgnoreCase("add")){ //TODO Must become request (both users must accept)
+			if(args[0].equalsIgnoreCase("request") || args[0].equalsIgnoreCase("req")){
 				if(friendPlayer == null) return false;
 				if(args.length != 2){
 					sender.sendMessage(Util.formatMessage(ChatColor.DARK_RED + "Not enough params!"));
 					return true;
 				}
 				OfflinePlayer newFriend = Bukkit.getOfflinePlayer(args[1]);
-				if(newFriend.getName().equals(player.getName())){
-					sender.sendMessage(Util.formatMessage(ChatColor.DARK_RED + "You cannot add yourself."));
-					return true;
-				}
 				if(newFriend == null){
 					sender.sendMessage(Util.formatMessage(ChatColor.DARK_RED + "Player does not exist."));
 					return true;
 				}
-				friendPlayer.addFriend(newFriend);
+				if(newFriend.getName().equals(player.getName())){
+					sender.sendMessage(Util.formatMessage(ChatColor.DARK_RED + "You cannot add yourself."));
+					return true;
+				}
+				plugin.friendManager.sendRequest(player, newFriend);
+				if(newFriend.isOnline()){
+					Player newFriendP = (Player) newFriend;
+					newFriendP.sendMessage(Util.formatMessage(ChatColor.DARK_RED + "You have been sent a friend request by " + player.getName() + "."));
+					newFriendP.sendMessage(Util.formatMessage(ChatColor.DARK_RED + "To become friends type \"/friends confirm " + player.getName() + "\"."));
+				} //TODO Add ignore command for friend requests
 				return true;
-			} else if(args[0].equalsIgnoreCase("remove")){ //TODO To become ignore/block
+			} else if(args[0].equalsIgnoreCase("confirm")){
+				if(friendPlayer == null) return false;
+				if(args.length != 2){
+					sender.sendMessage(Util.formatMessage(ChatColor.DARK_RED + "Not enough params."));
+					return true;
+				}
+				OfflinePlayer opFriend = Bukkit.getOfflinePlayer(args[1]);
+				if(opFriend == null){
+					sender.sendMessage(Util.formatMessage(ChatColor.DARK_RED + "Player does not exist."));
+					return true;
+				}
+				if(!plugin.friendManager.getRequests(player).contains(opFriend.getName())){
+					sender.sendMessage(Util.formatMessage(ChatColor.DARK_RED + "That player never sent you a request."));
+					return true;
+				}
+				plugin.friendManager.completeRequest(player, opFriend);
+				player.sendMessage(Util.formatMessage(ChatColor.DARK_RED + "You are now friends with " + opFriend.getName() + "."));
+				if(opFriend.isOnline()){
+					((Player) opFriend).sendMessage(Util.formatMessage(ChatColor.DARK_RED + "You are now friends with " + player.getName() + "."));
+				}
+				return true;
+			} else if(args[0].equalsIgnoreCase("remove")){ //TODO To become block (instant removal of friend)
 				if(friendPlayer == null) return false;
 				if(args.length != 2){
 					sender.sendMessage(Util.formatMessage(ChatColor.DARK_RED + "Not enough params."));

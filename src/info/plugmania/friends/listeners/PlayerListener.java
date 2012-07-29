@@ -2,8 +2,8 @@ package info.plugmania.friends.listeners;
 
 
 import info.plugmania.friends.Friends;
+import info.plugmania.friends.helpers.Friend;
 
-import info.plugmania.helpers.Friend;
 import org.bukkit.ChatColor;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.entity.Player;
@@ -60,11 +60,14 @@ public class PlayerListener implements Listener {
 
 	@EventHandler
 	public void onPlayerToggleSneak(PlayerToggleSneakEvent event){
+		if(!event.isSneaking()) return; //dont fire on up and down
 		Player player = event.getPlayer();
 		Friend friendPlayer = plugin.friendManager.getFriend(player);
 		if(friendPlayer == null) return;
 
 		Player p = friendPlayer.getNextLocatorPlayer();
+		if(p == null) return;
+		System.out.print(p.getName());
 		player.setCompassTarget(p.getLocation());
 	}
 }

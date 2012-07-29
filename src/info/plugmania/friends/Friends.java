@@ -2,10 +2,10 @@ package info.plugmania.friends;
 
 import info.plugmania.friends.commands.FriendsChatCommand;
 import info.plugmania.friends.commands.FriendsCommand;
+import info.plugmania.friends.helpers.CompassUpdater;
+import info.plugmania.friends.helpers.FriendManager;
 import info.plugmania.friends.listeners.PlayerListener;
 
-import info.plugmania.helpers.CompassUpdater;
-import info.plugmania.helpers.FriendManager;
 import org.bukkit.Bukkit;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
@@ -14,9 +14,8 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 /*
  * TODO
- * Ignore/Request command instead of add/remove
+ * Ignore command for requests
  * Trading between friends
- * Find players with compass (cycle through with shift)
  */
 public class Friends extends JavaPlugin {
 	public YamlConfiguration mainConf;

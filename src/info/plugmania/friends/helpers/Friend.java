@@ -1,4 +1,4 @@
-package info.plugmania.helpers;
+package info.plugmania.friends.helpers;
 
 import org.bukkit.Bukkit;
 import org.bukkit.OfflinePlayer;
@@ -16,7 +16,7 @@ public class Friend {
 
 	private ArrayList<OfflinePlayer> friends = new ArrayList<OfflinePlayer>();
 
-	public Friend(Player p, ArrayList<OfflinePlayer> friendsPlayers) {
+	public Friend(OfflinePlayer p, ArrayList<OfflinePlayer> friendsPlayers) {
 		playerName = p.getName();
 		friends = friendsPlayers;
 	}
@@ -56,26 +56,23 @@ public class Friend {
 	}
 
 	public Player getCurrentLocatorPlayer(){
-		if(playerLocator == null) return getNextLocatorPlayer();
-		if(Bukkit.getPlayerExact(playerLocator) == null){
-			return getNextLocatorPlayer();
-		} else {
-			return Bukkit.getPlayerExact(playerLocator);
-		}
+		if(playerLocator == null) return null;
+		return Bukkit.getPlayerExact(playerLocator);
 	}
 
 	public Player getNextLocatorPlayer(){
 		ArrayList<Player> onlineFriends = getOnlineFriends();
 		if(onlineFriends.size() == 0) return null;
-		boolean isNext = false;
-		for(Player p : onlineFriends){
-			if(isNext){
-				playerLocator = p.getName();
-				return p;
-			} else {
-				if(playerLocator == p.getName()) isNext = true;
+		int index = 0;
+		if(playerLocator != null){
+			Player currLocator = Bukkit.getPlayerExact(playerLocator);
+			System.out.print("1");
+			if(currLocator != null && onlineFriends.contains(currLocator)){
+				index = onlineFriends.indexOf(currLocator) + 1;
+				if(index >= onlineFriends.size()) index = 0;
 			}
 		}
-		return null;
+		System.out.print(index);
+		return onlineFriends.get(index);
 	}
 }
